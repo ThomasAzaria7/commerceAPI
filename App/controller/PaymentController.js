@@ -11,10 +11,13 @@ exports.createOrders = (req, res, next) => {
     {
       headers: {
         "Content-Type": "application/json",
+
         Authorization:
-          "Bearer f7ztpfjx8s5wq45w$a9dc847dfa8a9e1fdd5be8a2e5b34d41",
+          "Bearer A21AAJeHmA2rQHhoX1CAJpn-XxnJm0S-sWni1zMARS9fr_UBVP4IEOZLwC5o4MXXP4vbze1b88jvEV5n7IzlG_uuu1oPsifvw",
         "PayPal-Partner-Attribution-Id": "FLAVORsb-2tosg7907703_MP"
       },
+      mode: "cors",
+
       body: {
         intent: "CAPTURE",
         purchase_units: [
@@ -54,5 +57,35 @@ exports.createOrders = (req, res, next) => {
     }
   );
 };
+// express().post("/my-server/handle-approve/:id", function (req, res) {
 
-// exports.createOrder;
+exports.captureOrder = (req, res, next) => {
+  var OrderID = req.params.id;
+  console.log(OrderID);
+
+  request.post(
+    "https://api-m.sandbox.paypal.com/v2/checkout/orders/" +
+      OrderID +
+      "/capture",
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization:
+          "Bearer A21AAJeHmA2rQHhoX1CAJpn-XxnJm0S-sWni1zMARS9fr_UBVP4IEOZLwC5o4MXXP4vbze1b88jvEV5n7IzlG_uuu1oPsifvw",
+        "PayPal-Partner-Attribution-Id": "FLAVORsb-2tosg7907703_MP"
+      }
+    },
+    function(err, response, body) {
+      if (err) {
+        console.error(err);
+        return res.sendStatus(500);
+      }
+
+      console.log(body);
+
+      res.json({
+        status: "success"
+      });
+    }
+  );
+};

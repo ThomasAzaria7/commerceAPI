@@ -16,6 +16,7 @@ app.use((req, res, next) => {
 
 // middlewares
 app.use("/my-server", processBuyerOrder.processBuyerOrder); //  my-server/create-order
+app.use("/my-server", processBuyerOrder.captureBuyerOrder);
 // run server
 
 app.listen(3000);
