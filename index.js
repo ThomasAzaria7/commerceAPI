@@ -4,7 +4,7 @@ const app = express();
 
 //modules
 const processBuyerOrder = require("./App/routes/PayPalPayments");
-const subscriptionPlan = require("./App/routes/subscriptionRoute");
+const subscriptionPlan = require("./App/routes/subscriptionsRoute");
 
 //config
 app.use((req, res, next) => {
@@ -26,7 +26,22 @@ app.use("/my-server", processBuyerOrder.captureBuyerOrder); //  my-server/
 app.use("/my-server", processBuyerOrder.getAccessToken); //        my-server/token
 //
 
-app.use("/my-server", subscriptionPlan.createProduct); //  /my-server/createSubscribeProduct
+//subscriptions
+app.use("/my-server", subscriptionPlan.createProduct); //  /my-server/create-subscription-product
+app.use("/my-server", subscriptionPlan.createPlans); //  /my-server/create-subscription-Plans
+app.use("/my-server", subscriptionPlan.createsubscriber); //  /my-server/user-subscription
 
+// app.use("/my-server", subscriptionPlan.createProduct); //  /my-server/
+// app.use("/my-server", subscriptionPlan.createProduct); //  /my-server/
+// app.use("/my-server", subscriptionPlan.createProduct); //  /my-server/
+
+//end of subscriptions
+
+//recipts
+app.use("/my-server", processBuyerOrder.getOrders); // /my-server/product
+
+//
+
+app.use("/my-server", processBuyerOrder.payout); //  /my-server/pay-clients
 // run server
 app.listen(3000);
