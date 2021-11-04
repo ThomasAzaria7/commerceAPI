@@ -2,6 +2,7 @@
 // const app = express();
 // var ejs = require("
 var request = require("request");
+let token = null;
 
 exports.getToken = (req, res, next) => {
   request.post(
@@ -29,7 +30,8 @@ exports.getToken = (req, res, next) => {
         return res.sendStatus(500);
       }
 
-      console.log(body);
+      token = body.access_token;
+      console.log("mybody", token);
       res.json({
         id: body
       });
@@ -39,13 +41,16 @@ exports.getToken = (req, res, next) => {
 
 // let accessToken = "";
 //////creating orders
-
+const myItems = null;
 exports.createOrders = (req, res, next) => {
-  console.log("body contntestss", req.body.token);
-  accessToken = req.body.token;
-  console.log(accessToken);
+  // console.log("body contntestss", req.body.token);
+  accessToken = req.body.token.token;
+  console.log("checkout items", req.body.items);
 
-  // const items = req.body.items;
+  // console.log(req.body.items);
+  const myItems = req.body.items;
+  // const myItems = JSON.parse(req.body.items);
+  // console.log(myItems);
 
   request.post(
     "https://api.sandbox.paypal.com/v2/checkout/orders",
@@ -63,41 +68,17 @@ exports.createOrders = (req, res, next) => {
           {
             amount: {
               currency_code: "USD",
-              value: "35",
+              value: myItems.cartTotalPrice,
               breakdown: {
                 item_total: {
                   /* Required when including the `items` array */
                   currency_code: "USD",
-                  value: "35"
+                  value: myItems.cartTotalPrice
                 }
               }
             },
 
-            items: [
-              {
-                name:
-                  "second Product Name" /* Shows within upper-right dropdown during payment approval */,
-                description:
-                  "Optional descriptive text.." /* Item details will also be in the completed paypal.com transaction view */,
-                unit_amount: {
-                  currency_code: "USD",
-                  value: "15"
-                },
-                quantity: "1"
-              },
-
-              {
-                name:
-                  "second Product Name" /* Shows within upper-right dropdown during payment approval */,
-                description:
-                  "Optional descriptive text.." /* Item details will also be in the completed paypal.com transaction view */,
-                unit_amount: {
-                  currency_code: "USD",
-                  value: "10"
-                },
-                quantity: "2"
-              }
-            ],
+            items: myItems.items,
 
             payee: {
               email_address: "sb-tp043i8211611@business.example.com",
