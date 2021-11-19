@@ -123,9 +123,6 @@ exports.userSubscribe = (req, res, next) => {
         "Content-Type": "application/json",
         Authorization:
           "Bearer A21AAIzu9jSlSHJuXAHoFgLWzqZg6j3ABMebiBwyqgijgpCIjLXhplI4uzEwxMymh0BOoN2GezHqyh24vkZSYU-hMPG2-ol-A"
-        // "PayPal-Request-Id": "123e4567-e89b-12d3-a456-426655440020",
-        // "PayPal-Auth-Assertion":
-        //   "AOdZvun5.QttWoS6t6vDMXAH9XRhAtBORWWvQpp4y8y5U5z9Cxk-FHAs"
       },
 
       body: {

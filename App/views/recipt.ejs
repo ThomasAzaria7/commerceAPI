@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" type="text/css" href="/recipt.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <style>
+      .total {
+      }
+    </style>
+
+    <div class="container">
+      <br />
+      <table
+        border="0"
+        cellpadding="0"
+        cellspacing="0"
+        height="100%"
+        width="100%"
+        id="bodyTable"
+      >
+        <tr>
+          <td align="center" valign="top">
+            <table
+              border="0"
+              cellpadding="20"
+              cellspacing="0"
+              width="600"
+              id="emailContainer"
+            >
+              <tr>
+                <td align="center" valign="top">
+                  <h1><%= data.reciptId %></h1>
+                  This is where my content goes.
+                </td>
+                <br />
+              </tr>
+              <hr />
+
+              <tr>
+                <td align="center" valign="top">
+                  <div>
+                    <h2>
+                      <%= data.payer.given_name %> <%= data.payer.surname%>
+                    </h2>
+                    <h4 style="margin: 0">
+                      <%= data.payer.email_address %> <br />
+                      <%= data.payer.payer_id %> <br />
+                    </h4>
+                  </div>
+                </td>
+              </tr>
+
+              <tr>
+                <td align="center" valign="top">
+                  <div style="width: 300px;">
+                    <% for(var i=0; i< data.items.length; i++) {%> <%=
+                    data.items[i].name %> <br />
+                    <%= data.items[i].unit_amount.value %>
+                    <br />
+                    <%= data.items[i].quantity %> <br />
+                    <hr />
+
+                    <% } %>
+                  </div>
+                </td>
+              </tr>
+
+              <tr>
+                <td align="center" valign="top">
+                  <div class="total" style="font-size: 30px;">
+                    <h2>
+                      Total $<%= money.total %>
+                    </h2>
+                    <h2>
+                      Total reduced $<%= money.total- money.papaltranactionFee
+                      %>
+                    </h2>
+                    <h2>
+                      processing Fee $<%= money.papaltranactionFee %>
+                    </h2>
+                  </div>
+                </td>
+              </tr>
+
+              <tr>
+                <td align="center" valign="top">
+                  <div>
+                    <h2>my_Company</h2>
+                    <p>
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                      Odit recusandae veniam voluptatem culpa ex commodi nobis
+                      sunt, velit quo, tempore sapiente eos esse facilis
+                      provident vero. Provident adipisci eveniet repellat. Lorem
+                      ipsum dolor sit amet consectetur adipisicing elit.
+                      Deserunt soluta qui blanditiis culpa, corporis dolorum
+                      laboriosam repellendus quis, quam suscipit ratione sunt
+                      itaque, magnam amet nam quod animi nulla. Incidunt?
+                    </p>
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>

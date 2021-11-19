@@ -31,9 +31,9 @@ exports.getToken = (req, res, next) => {
       }
 
       token = body.access_token;
-      console.log("mybody", token);
+      console.log("myTokenbody", body);
       res.json({
-        id: body
+        tokenBody: body
       });
     }
   );
@@ -85,15 +85,15 @@ exports.createOrders = (req, res, next) => {
               merchant_id: "JJ8C3XEUG8NXG"
             },
             payment_instruction: {
-              disbursement_mode: "INSTANT",
-              platform_fees: [
-                {
-                  amount: {
-                    currency_code: "USD",
-                    value: "10"
-                  }
-                }
-              ]
+              disbursement_mode: "INSTANT"
+              // platform_fees: [
+              //   {
+              //     amount: {
+              //       currency_code: "USD",
+              //       value: "10"
+              //     }
+              //   }
+              // ]
             }
           }
         ]
@@ -117,9 +117,9 @@ exports.createOrders = (req, res, next) => {
 exports.captureOrder = (req, res, next) => {
   var OrderID = req.params.id;
   // const accessToken = req.body.token;
-  console.log(accessToken);
+  // console.log(accessToken);
 
-  console.log(OrderID);
+  // console.log(OrderID);
 
   request.post(
     "https://api-m.sandbox.paypal.com/v2/checkout/orders/" +
@@ -139,10 +139,11 @@ exports.captureOrder = (req, res, next) => {
         return res.sendStatus(500);
       }
 
-      console.log(body);
+      // console.log(body);
+      // console.log("payment", body);
 
       res.json({
-        status: "success"
+        status: body
       });
     }
   );

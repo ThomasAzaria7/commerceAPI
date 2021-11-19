@@ -16,11 +16,16 @@ exports.captureBuyerOrder = router.post(
   createOrder.captureOrder
 );
 
+// get recipt route
 exports.getOrders = router.get(
-  "/product",
+  "/product/:id",
   completeProduct.getCompletedProducts
 );
 
 //payouts
 
 exports.payout = router.post("/pay-clients", clientPayout.sendPayment);
+exports.payoutConfirmation = router.get(
+  "/confirm-payout",
+  clientPayout.getPayoutConfirmation
+);
