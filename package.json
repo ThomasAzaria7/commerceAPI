@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": " nodemon index.js",
+    "start": "NODE_ENV=production node index.js",
     "start-server":"node index.js",
-    "start-dev":"npm start"
+    "start:dev":"nodemon index.js"
   },
   "author": "Thomas Azaria",
   "license": "ISC",
