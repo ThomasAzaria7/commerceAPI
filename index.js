@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-require("dotenv").config(); 
+require("dotenv").config();
 // const bodyParser = require("body-parser");
 
 //modules
@@ -59,4 +59,4 @@ app.use("/my-server", processBuyerOrder.getOrders); // /my-server/product
 app.use("/my-server", processBuyerOrder.payout); //  /my-server/pay-clients
 app.use("/my-server", processBuyerOrder.payoutConfirmation);
 // run server
-app.listen( process.env.PORT||3000);
+app.listen(process.env.PORT || 3000);
