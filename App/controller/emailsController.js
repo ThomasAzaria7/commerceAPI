@@ -11,8 +11,8 @@ app.set("views", "views");
 let transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
-    user: "thomas.azaria7@gmail.com",
-    pass: "ignwfytnhsjbncww"
+    user: process.env.EMAIL,
+    pass: process.env.PASSWORD
   }
 });
 
@@ -35,11 +35,16 @@ transporter.use(
 );
 //send mail with options
 
-// function is for sending recipt to email of customer
+/**
+ // function is for sending recipt to email of customer 
+ **/
 exports.sendRecipt = (req, res, next) => {
-  const mailOptions = req.body;
+  const mailOptions = req.body.recipt_data;
+  console.log(req.body.current_SEller_email);
+  let sellerEmail = req.body.current_SEller_email;
   const items = mailOptions.items;
   //   console.log("my recipt dataa", req.body);
+  // items_data;
 
   payments = {
     total: 0,
@@ -47,15 +52,13 @@ exports.sendRecipt = (req, res, next) => {
   };
 
   for (let i = 0; i < items.length; i++) {
-    console.log("user" + i, items);
+    // console.log("user" + i, items);
 
     payments.total += parseFloat(items[i].unit_amount.value);
 
     payments.papaltranactionFee = (payments.total * 0.027 + 0.3).toFixed(2);
     console.log(payments.papaltranactionFee);
   }
-
-  //   const Customeremail = mailOptions.data.data.payer.email_address;
 
   var filePath = "./App/views/recipt.ejs";
   var resolvedPath = path.resolve(filePath);
@@ -70,9 +73,9 @@ exports.sendRecipt = (req, res, next) => {
       //   console.log(mailOptions.data);
 
       var mainOptions = {
-        from: '"HobbyJockey" testmail@zoho.com',
-        to: "yungblackhumbl3@gmail.com",
-        subject: "Hello, world",
+        from: '"Aseyea MarketPlace" testmail@zoho.com',
+        to: sellerEmail,
+        subject: "recipt",
         html: data
       };
       // console.log("html data ======================>", mainOptions.html);
@@ -105,12 +108,27 @@ exports.welcomeMail = (req, res, next) => {
 exports.signupMail = (req, res, next) => {
   const mailOptions = req.body;
 
-  transporter.sendMail(mailOptions, function(err, info) {
+  var filePath = "./views/welcomeEmail.ejs";
+  var resolvedPath = path.resolve(filePath);
+
+  ejs.renderFile(resolvedPath, { data: mailOptions }, function(err, data) {
     if (err) {
       console.log(err);
     } else {
-      console.log(info);
-      res.send(info);
+      var mainOptions = {
+        from: '"HobbyJockey" testmail@zoho.com',
+        to: "yungblackhumbl3@gmail.com",
+        subject: "Hello, world",
+        html: data
+      };
+      // console.log("html data ======================>", mainOptions.html);
+      transporter.sendMail(mainOptions, function(err, info) {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log("Message sent: " + info.response);
+        }
+      });
     }
   });
 };
@@ -118,10 +136,10 @@ exports.signupMail = (req, res, next) => {
 exports.subscribeMailNotice = (req, res, next) => {
   const mailOptions = req.body;
 
-  var filePath = "./views/recipt.ejs";
+  var filePath = "./views/subscriptionEmail.ejs";
   var resolvedPath = path.resolve(filePath);
 
-  ejs.renderFile(resolvedPath, { name: mailOptions.data }, function(err, data) {
+  ejs.renderFile(resolvedPath, { data: mailOptions.data }, function(err, data) {
     if (err) {
       console.log(err);
     } else {

@@ -10,10 +10,10 @@ const email = require("./App/routes/emailRoutes");
 
 //config
 app.use((req, res, next) => {
-	res.setHeader("Access-Control-Allow-Origin", "*"),
-		res.setHeader("Access-Control-Allow-Methods", "Get,Post,Put,Patch,Delete"),
-		res.setHeader("Access-Control-Allow-Headers", "Content-Type,Authorization"),
-		next();
+  res.setHeader("Access-Control-Allow-Origin", "*"),
+    res.setHeader("Access-Control-Allow-Methods", "Get,Post,Put,Patch,Delete"),
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type,Authorization"),
+    next();
 });
 
 // parser body
@@ -45,6 +45,7 @@ app.use("/my-server", subscriptionPlan.createsubscriber); //  /my-server/user-su
  */
 
 app.use("/my-server", email.recipt); // my-server/send-recipt
+app.use("/my-server", email.signup); // my-server/register
 //end of email
 
 /*
@@ -58,5 +59,6 @@ app.use("/my-server", processBuyerOrder.getOrders); // /my-server/product
  */
 app.use("/my-server", processBuyerOrder.payout); //  /my-server/pay-clients
 app.use("/my-server", processBuyerOrder.payoutConfirmation);
+
 // run server
 app.listen(process.env.PORT || 3000);

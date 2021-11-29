@@ -23,8 +23,8 @@ exports.getOrders = router.get(
 );
 
 //payouts
-
 exports.payout = router.post("/pay-clients", clientPayout.sendPayment);
+
 exports.payoutConfirmation = router.get(
   "/confirm-payout",
   clientPayout.getPayoutConfirmation
