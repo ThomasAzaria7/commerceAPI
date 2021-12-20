@@ -34,58 +34,12 @@
             >
               <tr>
                 <td align="center" valign="top">
-                  <h1><%= data.reciptId %></h1>
+                  <h1>THANK YOU FOR REGISTERING TO ASEYEA</h1>
                   This is where my content goes.
                 </td>
                 <br />
               </tr>
               <hr />
-
-              <tr>
-                <td align="center" valign="top">
-                  <div>
-                    <h2>
-                      <%= data.payer.given_name %> <%= data.payer.surname%>
-                    </h2>
-                    <h4 style="margin: 0">
-                      <%= data.payer.email_address %> <br />
-                      <%= data.payer.payer_id %> <br />
-                    </h4>
-                  </div>
-                </td>
-              </tr>
-
-              <tr>
-                <td align="center" valign="top">
-                  <div style="width: 300px;">
-                    <% for(var i=0; i< data.items.length; i++) {%> <%=
-                    data.items[i].name %> <br />
-                    <%= data.items[i].unit_amount.value %>
-                    <br />
-                    <%= data.items[i].quantity %> <br />
-                    <hr />
-
-                    <% } %>
-                  </div>
-                </td>
-              </tr>
-
-              <tr>
-                <td align="center" valign="top">
-                  <div class="total" style="font-size: 30px;">
-                    <h2>
-                      Total $<%= money.total %>
-                    </h2>
-                    <h2>
-                      Total reduced $<%= money.total- money.papaltranactionFee
-                      %>
-                    </h2>
-                    <h2>
-                      processing Fee $<%= money.papaltranactionFee %>
-                    </h2>
-                  </div>
-                </td>
-              </tr>
 
               <tr>
                 <td align="center" valign="top">

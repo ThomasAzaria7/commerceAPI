@@ -34,14 +34,58 @@
             >
               <tr>
                 <td align="center" valign="top">
-                  <h1>THANK YOU FOR SUBSCRIBING TO ASEYEA</h1>
-                  <P>
-                    This is where my content goes.
-                  </P>
+                  <h1><%= data.reciptId %></h1>
+                  <img
+                    width="100%"
+                    height="300px"
+                    src="https://images.pexels.com/photos/919436/pexels-photo-919436.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+                    alt=""
+                    style="object-fit: contain"
+                  />
                 </td>
                 <br />
               </tr>
               <hr />
+
+              <tr>
+                <td align="center" valign="top">
+                  <div>
+                    <h2>
+                      <%= data.payer.name.given_name %> <%=
+                      data.payer.name.surname%>
+                    </h2>
+                    <h4 style="margin: 0">
+                      <%= data.payer.email_address %> <br />
+                      <%= data.payer.payer_id %> <br />
+                    </h4>
+                  </div>
+                </td>
+              </tr>
+
+              <tr>
+                <td align="center" valign="top">
+                  <div style="width: 300px;">
+                    <% for(var i=0; i< data.purchase_units[0].items.length; i++)
+                    {%> <%= data.purchase_units[0].items[i].name %> <br />
+                    <%= data.purchase_units[0].items[i].unit_amount.value %>
+                    <br />
+                    <%= data.purchase_units[0].items[i].quantity %> <br />
+                    <hr />
+
+                    <% } %>
+                  </div>
+                </td>
+              </tr>
+
+              <tr>
+                <td align="center" valign="top">
+                  <div class="total" style="font-size: 30px;">
+                    <h2>
+                      Total $<%= money.total %>
+                    </h2>
+                  </div>
+                </td>
+              </tr>
 
               <tr>
                 <td align="center" valign="top">

@@ -92,23 +92,54 @@ exports.sendRecipt = (req, res, next) => {
   return res.json();
 };
 
-exports.welcomeMail = (req, res, next) => {
-  const mailOptions = req.body;
+/// create buyer recipt
 
-  transporter.sendMail(mailOptions, function(err, info) {
+exports.buyerRecipt = (req, res, next) => {
+  const mailOptions = req.body.recipt_data; // retrieve complete recipt data
+  const items = mailOptions.purchase_units[0].items; // retreieve recipt items from recipt data
+  const email_address = mailOptions.payer.email_address; // email address retireved from paypal.
+
+  payments = { total: 0 }; // use object to store total cost
+  // loop to get total cost of items
+  for (let i = 0; i < items.length; i++) {
+    payments.total += parseFloat(items[i].unit_amount.value);
+  }
+
+  var filePath = "./App/views/buyerRecipt.ejs"; // specifify file path for file to be rendered in the email.
+  var resolvedPath = path.resolve(filePath);
+
+  ejs.renderFile(resolvedPath, { data: mailOptions, money: payments }, function(
+    err,
+    data
+  ) {
     if (err) {
       console.log(err);
     } else {
-      console.log(info);
-      res.send(info);
+      var mainOptions = {
+        from: '"Aseyea MarketPlace" testmail@zoho.com',
+        to: "yungblackhumbl3@gmail.com", // change this field to be dynamic
+        subject: "recipt",
+        html: data
+      };
+      // console.log("html data ======================>", mainOptions.html);
+      transporter.sendMail(mainOptions, function(err, info) {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log(" buyer emial Message sent: " + info.response);
+        }
+      });
     }
   });
-};
 
-exports.signupMail = (req, res, next) => {
+  return res.json();
+};
+// end of buyer recipt
+
+exports.welcomeMail = (req, res, next) => {
   const mailOptions = req.body;
 
-  var filePath = "./views/welcomeEmail.ejs";
+  var filePath = "./App/views/welcomeEmail.ejs";
   var resolvedPath = path.resolve(filePath);
 
   ejs.renderFile(resolvedPath, { data: mailOptions }, function(err, data) {
@@ -136,7 +167,7 @@ exports.signupMail = (req, res, next) => {
 exports.subscribeMailNotice = (req, res, next) => {
   const mailOptions = req.body;
 
-  var filePath = "./views/subscriptionEmail.ejs";
+  var filePath = "./App/views/subscriptionEmail.ejs";
   var resolvedPath = path.resolve(filePath);
 
   ejs.renderFile(resolvedPath, { data: mailOptions.data }, function(err, data) {
@@ -161,19 +192,47 @@ exports.subscribeMailNotice = (req, res, next) => {
   });
 };
 
-exports.newsLetters = (req, res, next) => {
+exports.productShipped = (req, res, next) => {
   const mailOptions = req.body;
 
-  var send = transporter.templateSender(
-    new EmailTemplate("template/directory")
-  );
+  var filePath = "./App/views/itemShipped.ejs";
+  var resolvedPath = path.resolve(filePath);
 
-  transporter.sendMail(mailOptions, function(err, info) {
+  ejs.renderFile(resolvedPath, { data: mailOptions.data }, function(err, data) {
     if (err) {
       console.log(err);
     } else {
-      console.log(info);
-      res.send(info);
+      var mainOptions = {
+        from: '"HobbyJockey" testmail@zoho.com',
+        to: "yungblackhumbl3@gmail.com",
+        subject: "Hello, world",
+        html: data
+      };
+      // console.log("html data ======================>", mainOptions.html);
+      transporter.sendMail(mainOptions, function(err, info) {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log("Message sent: " + info.response);
+        }
+      });
     }
   });
 };
+
+// exports.newsLetters = (req, res, next) => {
+//   const mailOptions = req.body;
+
+//   var send = transporter.templateSender(
+//     new EmailTemplate("template/directory")
+//   );
+
+//   transporter.sendMail(mailOptions, function(err, info) {
+//     if (err) {
+//       console.log(err);
+//     } else {
+//       console.log(info);
+//       res.send(info);
+//     }
+//   });
+// };

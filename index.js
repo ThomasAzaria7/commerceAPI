@@ -45,7 +45,11 @@ app.use("/my-server", subscriptionPlan.createsubscriber); //  /my-server/user-su
  */
 
 app.use("/my-server", email.recipt); // my-server/send-recipt
-app.use("/my-server", email.signup); // my-server/register
+app.use("/my-server", email.myRecipt); // my-server/buyer-recipt
+app.use("/my-server", email.subscribe); // my-server/subscribe-notice
+app.use("/my-server", email.welcome); // my-server/register-welcome
+app.use("/my-server", email.itemShipped); // my-server/item-shipped
+// app.use("/my-server", email.); // my-server/
 //end of email
 
 /*
