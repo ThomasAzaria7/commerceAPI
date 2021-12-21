@@ -11,7 +11,7 @@ exports.welcome = router.post("/register-welcome", mailController.welcomeMail); 
 exports.subscribe = router.post(
   "/subscribe-notice",
   mailController.subscribeMailNotice
-); // sending subscribed notice email
+); // sending subscribed notice email 
 
 exports.itemShipped = router.post(
   "/item-shipped",
