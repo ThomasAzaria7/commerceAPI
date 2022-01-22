@@ -49,6 +49,7 @@ exports.createOrders = (req, res, next) => {
 
   // console.log(req.body.items);
   const myItems = req.body.items;
+
   // const myItems = JSON.parse(req.body.items);
   // console.log(myItems);
 

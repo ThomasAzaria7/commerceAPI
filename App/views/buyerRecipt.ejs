@@ -43,8 +43,10 @@
                     style="object-fit: contain"
                   />
                 </td>
+                <p>buyer recipt</p>
                 <br />
               </tr>
+
               <hr />
 
               <tr>
@@ -67,7 +69,7 @@
                   <div style="width: 300px;">
                     <% for(var i=0; i< data.purchase_units[0].items.length; i++)
                     {%> <%= data.purchase_units[0].items[i].name %> <br />
-                    <%= data.purchase_units[0].items[i].unit_amount.value %>
+                    $ <%= data.purchase_units[0].items[i].unit_amount.value %>
                     <br />
                     <%= data.purchase_units[0].items[i].quantity %> <br />
                     <hr />

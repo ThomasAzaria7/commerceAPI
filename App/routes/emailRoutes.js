@@ -11,12 +11,14 @@ exports.welcome = router.post("/register-welcome", mailController.welcomeMail); 
 exports.subscribe = router.post(
   "/subscribe-notice",
   mailController.subscribeMailNotice
-); // sending subscribed notice email 
+); // sending subscribed notice email
 
 exports.itemShipped = router.post(
   "/item-shipped",
   mailController.productShipped
-); // sending recipt to buyer.
+); //
+
+// sending recipt to buyer.
 // exports.signup = router.post("/buyer-recipts", mailController.); // sending recipt to buyer.
 // exports.newsletters = router
 //   .post("/weeklyletters", mailController.newsLetters)
